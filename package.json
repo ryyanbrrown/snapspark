@@ -11,5 +11,8 @@
   "description": "",
   "dependencies": {
     "stripe": "^18.1.0"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }

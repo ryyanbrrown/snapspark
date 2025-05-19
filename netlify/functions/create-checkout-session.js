@@ -1,3 +1,4 @@
+console.log('STRIPE_SECRET_KEY:', process.env.STRIPE_SECRET_KEY);
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
@@ -15,8 +16,8 @@ exports.handler = async (event) => {
                 quantity: 1,
             }],
             mode: 'payment',
-            success_url: 'https://snapspark.netlify.app/success', // Replace with your actual deployed success page URL
-            cancel_url: 'https://snapspark.netlify.app/cancel',   // Replace with your actual deployed cancel page URL
+            success_url: 'https://your-site.netlify.app/success', // Should match your deployed URL
+            cancel_url: 'https://your-site.netlify.app/cancel',   // Should match your deployed URL
         });
 
         return {
