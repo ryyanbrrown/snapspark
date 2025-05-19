@@ -7,25 +7,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://js.stripe.com/v3/"></script>
     <style>
-        .fire-container {
-            background-image: url(assests/pexels-pixabay-266388.jpg); /* Should be updated with your fire image URL */
-            background-size: cover;
-            background-position: center;
-            filter: brightness(0.5);
-            transition: filter 0.3s ease;
+        .fire-canvas {
+            background-color: #666; /* Inactive gray background */
+            transition: background-color 0.3s ease;
         }
-        .fire-container:hover {
-            filter: brightness(1.2);
+        .fire-canvas:hover {
+            background-color: transparent; /* Transparent on hover to show animation */
         }
     </style>
 </head>
 <body class="bg-gray-100 font-sans">
     <!-- Hero Section -->
     <header class="bg-gray-900 text-white py-16 text-center">
-        <img src=assests/12x15_waxpaper_Shopify_SnapSpark_RyanBrown_20250301.jpg alt="Snap Spark Logo" class="mx-auto mb-4 max-w-[150px] h-auto" /> <!-- Updated with max-w-[150px] h-auto -->
+        <img src="assests/12x15_waxpaper_Shopify_SnapSpark_RyanBrown_20250301.jpg" alt="Snap Spark Logo" class="mx-auto mb-4 max-w-[150px] h-auto" />
         <h1 class="text-5xl font-bold">Snap Fire Starters</h1>
         <p class="text-xl mt-4">Light Up Your Adventures – Made in the USA</p>
-        <div class="fire-container h-64 mt-8 mx-auto w-3/4 rounded-lg"></div>
+        <canvas id="fireCanvas" class="fire-canvas h-64 mt-8 mx-auto w-3/4 rounded-lg" width="900" height="256"></canvas>
     </header>
 
     <!-- Product Section -->
@@ -96,7 +93,7 @@
     <section id="contact" class="py-16 px-4">
         <h2 class="text-3xl font-bold text-center mb-8">Get in Touch</h2>
         <div class="max-w-md mx-auto">
-            <form netlify name="contact" method="POST" data-netlify="true" action="/success">
+            <form netlify name="contact" method="POST" data-netlify="true"> <!-- Removed action="/success" -->
                 <input type="hidden" name="form-name" value="contact" />
                 <input type="text" name="name" placeholder="Your Name" class="w-full p-3 rounded-lg border" required />
                 <input type="email" name="email" placeholder="Your Email" class="w-full p-3 rounded-lg border" required />
@@ -113,7 +110,7 @@
 
     <!-- Stripe Checkout Script -->
     <script>
-        const stripe = Stripe('pk_test_your_publishable_key'); // Should be updated with your Stripe Publishable Key
+        const stripe = Stripe('pk_test_51RCk8cL4xs34CgkjuuwtJatJW9Vsauttu0ks7dhvL61NzF8u3U2glkUkorkqaJEQ3NKREpBW404TBoij07yZlniS00W589Gv00'); // Should be updated with your Stripe Publishable Key
 
         document.querySelectorAll('.buy-button').forEach(button => {
             button.addEventListener('click', async () => {
@@ -141,6 +138,59 @@
                 }
             });
         });
+
+        // Interactive Fire Animation
+        const canvas = document.getElementById('fireCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        class Particle {
+            constructor() {
+                this.x = canvas.width / 2;
+                this.y = canvas.height;
+                this.size = Math.random() * 5 + 2;
+                this.speedY = Math.random() * -2 - 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.life = 1;
+                this.color = `hsl(${Math.random() * 60 + 0}, 100%, 50%)`; // Warm fire colors
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.life -= 0.01;
+                this.size *= 0.98; // Shrink over time
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (canvas.matches(':hover')) {
+                if (particles.length < 100) {
+                    particles.push(new Particle());
+                }
+                particles.forEach((particle, index) => {
+                    particle.update();
+                    particle.draw();
+                    if (particle.life <= 0) particles.splice(index, 1);
+                });
+            } else {
+                ctx.fillStyle = '#666'; // Inactive gray
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                particles = []; // Clear particles when not hovering
+            }
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 </body>
 </html>
