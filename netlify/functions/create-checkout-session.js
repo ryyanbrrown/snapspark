@@ -15,8 +15,8 @@ exports.handler = async (event) => {
                 quantity: 1,
             }],
             mode: 'payment',
-            success_url: 'https://snapspark.netlify.app/success', // Update with your deployed success page URL
-            cancel_url: 'https://snapspark.netlify.app/cancel',   // Update with your deployed cancel page URL
+            success_url: 'https://snapspark.netlify.app/success', // Replace with your actual deployed success page URL
+            cancel_url: 'https://snapspark.netlify.app/cancel',   // Replace with your actual deployed cancel page URL
         });
 
         return {
