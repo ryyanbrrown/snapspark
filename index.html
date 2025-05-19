@@ -109,16 +109,22 @@
     </footer>
 
     <!-- Stripe Checkout Script -->
-    <script>
-        const stripe = Stripe('pk_live_51RCk8cL4xs34Cgkjye4eNXjqWM8wyWnENaD9SybjOk9xtoesU101xy5xBk5TGRgXS4FdvVCEKzvu4UibNvcZmf1300TElzpskd'); // Should be updated with your Stripe Publishable Key
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const stripe = Stripe('pk_live_51RCk8cL4xs34Cgkjye4eNXjqWM8wyWnENaD9SybjOk9xtoesU101xy5xBk5TGRgXS4FdvVCEKzvu4UibNvcZmf1300TElzpskd'); // Verify this is your actual key
 
         document.querySelectorAll('.buy-button').forEach(button => {
             button.addEventListener('click', async () => {
                 const price = button.getAttribute('data-price');
                 const product = button.getAttribute('data-product');
+                console.log('Button attributes:', { price, product }); // Debug log
+                if (!price || !product) {
+                    console.error('Missing price or product attributes on button:', button);
+                    alert('Error: Product details missing. Please try again.');
+                    return;
+                }
                 console.log('Sending:', JSON.stringify({ price, product })); // Debug log
                 try {
-                    // Create a Checkout Session
                     const response = await fetch('/create-checkout-session', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -126,7 +132,6 @@
                     });
                     const session = await response.json();
 
-                    // Redirect to Stripe Checkout
                     const result = await stripe.redirectToCheckout({ sessionId: session.id });
 
                     if (result.error) {
@@ -138,7 +143,9 @@
                 }
             });
         });
-
+    });
+</script>
+    
         // Interactive Fire Animation
         const canvas = document.getElementById('fireCanvas');
         const ctx = canvas.getContext('2d');
