@@ -1,8 +1,17 @@
 console.log('Secret_Key:', process.env.Secret_Key);
+if (!process.env.Secret_Key) {
+    throw new Error('Secret_Key is not defined in environment variables');
+}
 const stripe = require('stripe')(process.env.Secret_Key);
 
 exports.handler = async (event) => {
     try {
+        if (!event.body || event.body.trim() === "") {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: "No JSON body provided" }),
+            };
+        }
         const { price, product } = JSON.parse(event.body);
 
         const session = await stripe.checkout.sessions.create({
@@ -16,8 +25,8 @@ exports.handler = async (event) => {
                 quantity: 1,
             }],
             mode: 'payment',
-            success_url: 'https://your-site.netlify.app/success', // Should match your deployed URL
-            cancel_url: 'https://your-site.netlify.app/cancel',   // Should match your deployed URL
+            success_url: 'https://snapspark.netlify.app/success', // Should match your deployed URL
+            cancel_url: 'https://snapspark.netlify.app/cancel',   // Should match your deployed URL
         });
 
         return {
