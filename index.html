@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snap - Fire Starters</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .fire-container {
+            background-image: url('https://via.placeholder.com/1200x400.png?text=Fire+Image'); /* Replace with actual fire image URL */
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.5);
+            transition: filter 0.3s ease;
+        }
+        .fire-container:hover {
+            filter: brightness(1.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <!-- Hero Section -->
+    <header class="bg-gray-900 text-white py-16 text-center">
+        <img src="https://via.placeholder.com/150.png?text=Snap+Logo" alt="Snap Spark Logo" class="mx-auto mb-4" /> <!-- Replace with actual logo URL (e.g., your hosted logo) -->
+        <h1 class="text-5xl font-bold">Snap Fire Starters</h1>
+        <p class="text-xl mt-4">Light Up Your Adventures – Made in the USA</p>
+        <div class="fire-container h-64 mt-8 mx-auto w-3/4 rounded-lg"></div>
+    </header>
+
+    <!-- Product Section -->
+    <section id="products" class="py-16 px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Our Products</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">1-Pack (10 units, 8 Min Burn)</h3>
+                <p class="mt-2 text-gray-600">Perfect for quick fires.</p>
+                <p class="mt-2 text-lg font-bold">$9.99</p>
+                <a href="#checkout" class="mt-4 inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Buy Now</a>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">1-Pack (10 units, 12 Min Burn)</h3>
+                <p class="mt-2 text-gray-600">Longer burn for bigger fires.</p>
+                <p class="mt-2 text-lg font-bold">$11.99</p>
+                <a href="#checkout" class="mt-4 inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Buy Now</a>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">3-Packs (10 units each, 8 Min Burn)</h3>
+                <p class="mt-2 text-gray-600">Stock up for multiple trips.</p>
+                <p class="mt-2 text-lg font-bold">$27.99</p>
+                <a href="#checkout" class="mt-4 inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Buy Now</a>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">3-Packs (10 units each, 12 Min Burn)</h3>
+                <p class="mt-2 text-gray-600">Extended burn for longer adventures.</p>
+                <p class="mt-2 text-lg font-bold">$32.99</p>
+                <a href="#checkout" class="mt-4 inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Buy Now</a>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">Mixed Pack (1x10 12 Min, 2x10 8 Min)</h3>
+                <p class="mt-2 text-gray-600">Versatile pack for all needs.</p>
+                <p class="mt-2 text-lg font-bold">$29.99</p>
+                <a href="#checkout" class="mt-4 inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Buy Now</a>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold">5-Packs (10 units each, 12 Min Burn)</h3>
+                <p class="mt-2 text-gray-600">Best value for long trips.</p>
+                <p class="mt-2 text-lg font-bold">$54.99</p>
+                <a href="#checkout" class="mt-4 inline-block bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600">Buy Now</a>
+            </div>
+        </div>
+        <p class="text-center mt-8 text-lg">Use code <span class="font-bold">FIRE10</span> for 10% off your first order!</p>
+    </section>
+
+    <!-- How to Use Section -->
+    <section id="how-to-use" class="py-16 px-4 bg-gray-200">
+        <h2 class="text-3xl font-bold text-center mb-8">How to Use Snap</h2>
+        <div class="max-w-4xl mx-auto">
+            <p class="text-lg text-center mb-4">Watch this quick video to see Snap in action!</p>
+            <div class="w-full h-64 bg-gray-300 rounded-lg flex items-center justify-center">
+                <!-- Replace with actual YouTube embed -->
+                <p>Video Placeholder (Embed your demo video here)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 px-4 bg-gray-200">
+        <h2 class="text-3xl font-bold text-center mb-8">About Snap</h2>
+        <p class="text-lg text-center max-w-2xl mx-auto">
+            Snap was founded in February 2025 with a mission to make fire-starting simple and reliable. Our wax-covered cotton fire starters are proudly made in the USA, designed for adventurers, campers, and anyone who loves the outdoors.
+        </p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 px-4">
+        <h2 class="text-3xl font-bold text-center mb-8">Get in Touch</h2>
+        <div class="max-w-md mx-auto">
+            <form netlify name="contact" method="POST" data-netlify="true" action="/success">
+                <input type="hidden" name="form-name" value="contact" />
+                <input type="text" name="name" placeholder="Your Name" class="w-full p-3 rounded-lg border" required />
+                <input type="email" name="email" placeholder="Your Email" class="w-full p-3 rounded-lg border" required />
+                <textarea name="message" placeholder="Your Message" class="w-full p-3 rounded-lg border h-32" required></textarea>
+                <button type="submit" class="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600">Send Message</button>
+            </form>
+            <!-- Netlify will send submissions to snapsparkcoe@outlook.com after setup in dashboard -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 text-center">
+        <p>© 2025 Snap Fire Starters. All rights reserved.</p>
+    </footer>
+</body>
+</html>
