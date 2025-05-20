@@ -1,8 +1,8 @@
-console.log('STRIPE_TEST_SECRET_KEY:', process.env.STRIPE_TEST_SECRET_KEY);
-if (!process.env.STRIPE_TEST_SECRET_KEY) {
-    throw new Error('STRIPE_TEST_SECRET_KEY is not defined in environment variables');
+console.log('STRIPE_SECRET_KEY:', process.env.STRIPE_SECRET_KEY);
+if (!process.env.STRIPE_SECRET_KEY) {
+    throw new Error('STRIPE_SECRET_KEY is not defined in environment variables');
 }
-const stripe = require('stripe')(process.env.STRIPE_TEST_SECRET_KEY);
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 exports.handler = async (event) => {
     try {
