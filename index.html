@@ -107,46 +107,55 @@
     <footer class="bg-gray-900 text-white py-8 text-center">
         <p>© 2025 Snap Fire Starters. All rights reserved.</p>
     </footer>
+<!-- [Previous HTML content remains the same until the Stripe Checkout Script section] -->
 
     <!-- Stripe Checkout Script -->
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const stripe = Stripe('pk_live_51RCk8cL4xs34Cgkjye4eNXjqWM8wyWnENaD9SybjOk9xtoesU101xy5xBk5TGRgXS4FdvVCEKzvu4UibNvcZmf1300TElzpskd'); // Verify this is your actual key
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const stripe = Stripe('pk_live_51RCk8cL4xs34Cgkjye4eNXjqWM8wyWnENaD9SybjOk9xtoesU101xy5xBk5TGRgXS4FdvVCEKzvu4UibNvcZmf1300TElzpskd');
 
-        document.querySelectorAll('.buy-button').forEach(button => {
-            button.addEventListener('click', async () => {
-                const price = button.getAttribute('data-price');
-                const product = button.getAttribute('data-product');
-                console.log('Button attributes:', { price, product }); // Debug log
-                if (!price || !product) {
-                    console.error('Missing price or product attributes on button:', button);
-                    alert('Error: Product details missing. Please try again.');
-                    return;
-                }
-                console.log('Sending:', JSON.stringify({ price, product })); // Debug log
-                try {
-                    const response = await fetch('/create-checkout-session', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ price, product })
-                    });
-                    const session = await response.json();
+            const buttons = document.querySelectorAll('.buy-button');
+            if (buttons.length === 0) {
+                console.error('No .buy-button elements found in the DOM');
+                return;
+            }
 
-                    const result = await stripe.redirectToCheckout({ sessionId: session.id });
-
-                    if (result.error) {
-                        alert(result.error.message);
+            buttons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const price = button.getAttribute('data-price');
+                    const product = button.getAttribute('data-product');
+                    console.log('Button attributes:', { price, product }); // Debug log
+                    if (!price || !product) {
+                        console.error('Missing price or product attributes on button:', button);
+                        alert('Error: Product details missing. Please try again.');
+                        return;
                     }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Something went wrong. Please try again.');
-                }
+                    console.log('Sending:', JSON.stringify({ price, product })); // Debug log
+                    try {
+                        const response = await fetch('/create-checkout-session', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ price, product })
+                        });
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        const session = await response.json();
+                        const result = await stripe.redirectToCheckout({ sessionId: session.id });
+                        if (result.error) {
+                            alert(result.error.message);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Something went wrong. Please try again.');
+                    }
+                });
             });
         });
-    });
-</script>
-    
-        // Interactive Fire Animation
+    </script>
+
+    <!-- Interactive Fire Animation -->
+    <script>
         const canvas = document.getElementById('fireCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
